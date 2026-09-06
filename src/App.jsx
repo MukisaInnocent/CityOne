@@ -15,36 +15,42 @@ const destinations = [
   {
     title: 'Kampala',
     description: 'A vibrant city mix of culture, food, markets, and modern urban energy.',
+    alt: 'Kampala city skyline and urban travel experience in Uganda',
     image:
       'https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Jinja',
     description: 'Adventure capital of Uganda with rivers, cliffs, and unforgettable views.',
+    alt: 'Scenic Jinja adventure landscape near the source of the Nile in Uganda',
     image:
       'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Murchison Falls',
     description: 'Wildlife encounters, river cruises, and dramatic landscapes in one trip.',
+    alt: 'Wildlife and dramatic scenery at Murchison Falls National Park in Uganda',
     image:
       'https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Queen Elizabeth',
     description: 'Game drives, crater lakes, and iconic African plains across a rich eco-system.',
+    alt: 'African wildlife on the plains of Queen Elizabeth National Park in Uganda',
     image:
       'https://images.unsplash.com/photo-1547036967-23d11aacaee0?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Bwindi',
     description: 'Mountain gorilla trekking and misty forest trails in a truly memorable setting.',
+    alt: 'Misty Bwindi Impenetrable Forest, home of Uganda gorilla trekking',
     image:
       'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Fort Portal',
     description: 'Crystalline waterfalls, green hills, and a relaxed countryside pace.',
+    alt: 'Green hills and scenic countryside around Fort Portal, Uganda',
     image:
       'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80',
   },
@@ -57,6 +63,7 @@ const tours = [
     duration: '4 Days / 3 Nights',
     price: 'From [STARTING PRICE]',
     description: 'A classic Uganda safari with game drives, scenic views, and memorable wildlife sightings.',
+    alt: 'Wildlife safari game drive in Queen Elizabeth National Park, Uganda',
     image:
       'https://images.unsplash.com/photo-1547036967-23d11aacaee0?auto=format&fit=crop&w=900&q=80',
   },
@@ -66,6 +73,7 @@ const tours = [
     duration: '3 Days / 2 Nights',
     price: 'From [STARTING PRICE]',
     description: 'A guided trekking experience into one of the world’s most treasured mountain gorilla habitats.',
+    alt: 'Guided gorilla trekking adventure in Bwindi Impenetrable Forest, Uganda',
     image:
       'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=80',
   },
@@ -75,6 +83,7 @@ const tours = [
     duration: '2 Days / 1 Night',
     price: 'From [STARTING PRICE]',
     description: 'Enjoy the Nile, adrenaline activities, culture, and a relaxed scenic getaway.',
+    alt: 'Adventure and river scenery on a Source of the Nile tour in Jinja, Uganda',
     image:
       'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80',
   },
@@ -84,6 +93,7 @@ const tours = [
     duration: '2 Days / 1 Night',
     price: 'From [STARTING PRICE]',
     description: 'Explore Kampala’s vibrant neighborhoods, heritage sites, and local experiences.',
+    alt: 'Kampala cultural tour through Uganda city neighborhoods and heritage sites',
     image:
       'https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=900&q=80',
   },
@@ -143,26 +153,32 @@ const seoByPath = {
   '/': {
     title: 'City One Adventures | Uganda Tours, Safaris & Travel Experiences',
     description: 'Plan memorable Uganda tours, safaris, gorilla trekking, cultural trips, and custom travel experiences with City One Adventures.',
+    keywords: 'Uganda tours, Uganda safaris, Uganda travel, gorilla trekking Uganda, Kampala tours, Jinja adventures, City One Adventures',
   },
   '/about': {
     title: 'About City One Adventures | Uganda Travel Experts',
     description: 'Learn how City One Adventures creates safe, authentic, and memorable Uganda travel experiences with local expertise.',
+    keywords: 'about City One Adventures, Uganda travel company, Uganda tour operator, local Uganda travel experts',
   },
   '/tours': {
     title: 'Uganda Tours & Safari Packages | City One Adventures',
     description: 'Explore handpicked Uganda tour packages including wildlife safaris, gorilla trekking, Jinja adventures, and Kampala cultural journeys.',
+    keywords: 'Uganda tour packages, Uganda safari packages, gorilla trekking tours, Jinja tours, Kampala cultural tours',
   },
   '/destinations': {
     title: 'Uganda Destinations | Kampala, Jinja, Bwindi & More',
     description: 'Discover the best Uganda destinations, from Kampala and Jinja to Bwindi, Murchison Falls, Queen Elizabeth, and Fort Portal.',
+    keywords: 'Uganda destinations, Kampala travel, Jinja Uganda, Bwindi, Murchison Falls, Queen Elizabeth National Park, Fort Portal',
   },
   '/services': {
     title: 'Travel Services in Uganda | City One Adventures',
     description: 'Get professional Uganda tour planning, safari packages, airport transfers, vehicle hire, guided tours, and customized travel support.',
+    keywords: 'Uganda travel services, tour planning Uganda, airport transfers Kampala, car hire Uganda, guided tours Uganda',
   },
   '/contact': {
     title: 'Contact City One Adventures | Plan Your Uganda Trip',
     description: 'Contact City One Adventures to plan a Uganda safari, tour, gorilla trekking experience, cultural journey, or custom itinerary.',
+    keywords: 'contact Uganda tour operator, book Uganda safari, plan Uganda trip, City One Adventures contact',
   },
 }
 
@@ -193,6 +209,7 @@ function App() {
 
     document.title = seo.title
     setMeta('name', 'description', seo.description)
+    setMeta('name', 'keywords', seo.keywords)
     setMeta('property', 'og:title', seo.title)
     setMeta('property', 'og:description', seo.description)
     setMeta('property', 'og:url', canonicalUrl)
@@ -216,19 +233,49 @@ function App() {
     }
     schema.textContent = JSON.stringify({
       '@context': 'https://schema.org',
-      '@type': 'TravelAgency',
-      name: 'City One Adventures',
-      url: 'https://cityoneadventure.com',
-      logo: new URL(logo, window.location.origin).href,
-      description: seo.description,
-      areaServed: 'Uganda',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Kampala Road, Liberty Tower, Level 3',
-        addressLocality: 'Kampala',
-        addressCountry: 'UG',
-      },
-      sameAs: [],
+      '@graph': [
+        {
+          '@type': 'TravelAgency',
+          '@id': 'https://cityoneadventure.com/#organization',
+          name: 'City One Adventures',
+          url: 'https://cityoneadventure.com',
+          logo: new URL(logo, window.location.origin).href,
+          description: seo.description,
+          keywords: seo.keywords,
+          areaServed: {
+            '@type': 'Country',
+            name: 'Uganda',
+          },
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'Kampala Road, Liberty Tower, Level 3',
+            addressLocality: 'Kampala',
+            addressCountry: 'UG',
+          },
+          email: 'info@cityoneadventure.com',
+          telephone: '+256786870308',
+          priceRange: '$$',
+          knowsAbout: ['Uganda safaris', 'Gorilla trekking', 'Cultural tours', 'Adventure travel'],
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://cityoneadventure.com/#website',
+          url: 'https://cityoneadventure.com',
+          name: 'City One Adventures',
+          publisher: { '@id': 'https://cityoneadventure.com/#organization' },
+          inLanguage: 'en-UG',
+        },
+        {
+          '@type': 'WebPage',
+          '@id': `${canonicalUrl}#webpage`,
+          url: canonicalUrl,
+          name: seo.title,
+          description: seo.description,
+          isPartOf: { '@id': 'https://cityoneadventure.com/#website' },
+          about: { '@id': 'https://cityoneadventure.com/#organization' },
+          inLanguage: 'en-UG',
+        },
+      ],
     })
   }, [currentPath])
 
@@ -341,7 +388,7 @@ function App() {
             <div className="hero-image-panel" aria-label="Uganda travel landscape">
               <img
                 src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?auto=format&fit=crop&w=1200&q=80"
-                alt="Wildlife on the plains of Uganda"
+                alt="Wildlife on the plains of Uganda during a City One Adventures safari"
               />
               <div className="floating-card">
                 <span>Featured Journey</span>
@@ -356,12 +403,12 @@ function App() {
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Explore Uganda</p>
-              <h2>Popular destinations for unforgettable experiences</h2>
+              <h1>Explore the Best Destinations in Uganda</h1>
             </div>
             <div className="card-grid destination-grid">
               {destinations.map((destination) => (
                 <article key={destination.title} className="destination-card">
-                  <img src={destination.image} alt={destination.title} loading="lazy" />
+                  <img src={destination.image} alt={destination.alt} loading="lazy" />
                   <div className="card-body">
                     <h3>{destination.title}</h3>
                     <p>{destination.description}</p>
@@ -377,7 +424,7 @@ function App() {
             <div className="section-heading split-heading">
               <div>
                 <p className="eyebrow">Handpicked adventures</p>
-                <h2>Featured tours and experiences</h2>
+                <h1>Uganda Tours and Safari Experiences</h1>
               </div>
               <a href="/contact" className="text-link" onClick={(event) => handleNavigation(event, '/contact')}>
                 Enquire Now →
@@ -387,7 +434,7 @@ function App() {
             <div className="card-grid tour-grid">
               {tours.map((tour) => (
                 <article key={tour.title} className="tour-card">
-                  <img src={tour.image} alt={tour.title} loading="lazy" />
+                  <img src={tour.image} alt={tour.alt} loading="lazy" />
                   <div className="card-body">
                     <div className="tour-meta">
                       <span>{tour.destination}</span>
@@ -417,7 +464,7 @@ function App() {
           <div className="container about-grid">
             <div className="about-copy">
               <p className="eyebrow">About City One Adventures</p>
-              <h2>Travel with confidence, care, and local expertise.</h2>
+              <h1>About City One Adventures: Your Uganda Travel Experts</h1>
               <p>
                 City One Adventures is a Ugandan tour and travel company dedicated to creating meaningful,
                 safe, and inspiring experiences for visitors exploring Uganda. From wildlife safaris to
@@ -454,7 +501,7 @@ function App() {
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Travel services</p>
-              <h2>Everything you need for a seamless Uganda journey</h2>
+              <h1>Travel Services for Seamless Uganda Journeys</h1>
             </div>
             <div className="service-grid">
               {services.map((service) => (
@@ -503,16 +550,29 @@ function App() {
           <div className="container contact-grid">
             <div className="contact-info">
               <p className="eyebrow">Contact us</p>
-              <h2>Let’s shape your perfect trip.</h2>
+              <h1>Contact City One Adventures to Plan Your Uganda Trip</h1>
               <div className="contact-address">
                 <h3>City One Adventures</h3>
                 <p>Kampala Road, Liberty Tower, Level 3</p>
                 <p>Kampala, Uganda</p>
               </div>
+              <div className="contact-actions">
+                <a className="button button-primary" href="mailto:info@cityoneadventure.com">
+                  Email Us
+                </a>
+                <a
+                  className="button button-whatsapp"
+                  href="https://wa.me/256786870308"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  WhatsApp Us
+                </a>
+              </div>
               <ul className="contact-list">
-                <li>Phone: [COMPANY PHONE NUMBER]</li>
-                <li>Email: [COMPANY EMAIL]</li>
-                <li>WhatsApp: [WHATSAPP NUMBER]</li>
+                <li>Phone: <a href="tel:0786870308">0786870308</a></li>
+                <li>Email: <a href="mailto:info@cityoneadventure.com">info@cityoneadventure.com</a></li>
+                <li>WhatsApp: <a href="https://wa.me/256786870308">0786870308</a></li>
                 <li>Google Maps: [MAP PLACEHOLDER]</li>
               </ul>
             </div>
@@ -594,9 +654,9 @@ function App() {
             <ul>
               <li>Kampala Road, Liberty Tower, Level 3</li>
               <li>Kampala, Uganda</li>
-              <li>[COMPANY PHONE NUMBER]</li>
-              <li>[COMPANY EMAIL]</li>
-              <li>[WHATSAPP NUMBER]</li>
+              <li><a href="tel:0786870308">0786870308</a></li>
+              <li><a href="mailto:info@cityoneadventure.com">info@cityoneadventure.com</a></li>
+              <li><a href="https://wa.me/256786870308">WhatsApp: 0786870308</a></li>
             </ul>
           </div>
 

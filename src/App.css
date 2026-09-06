@@ -30,6 +30,7 @@ img {
   margin-bottom: 38px;
 }
 
+.section-heading h1,
 .section-heading h2 {
   margin: 0;
   font-size: clamp(2rem, 4vw, 3rem);
@@ -121,6 +122,12 @@ img {
 .button-secondary {
   background: rgba(21, 58, 44, 0.08);
   color: #153d2f;
+}
+
+.button-whatsapp {
+  background: #25d366;
+  color: white;
+  box-shadow: 0 18px 35px rgba(37, 211, 102, 0.2);
 }
 
 .compact {
@@ -345,6 +352,7 @@ img {
   align-items: center;
 }
 
+.about-copy h1,
 .about-copy h2 {
   margin-top: 0;
   margin-bottom: 18px;
@@ -458,6 +466,20 @@ img {
   grid-template-columns: 0.8fr 1.2fr;
   gap: 32px;
   align-items: start;
+}
+
+.contact-info h1 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 26px 0;
 }
 
 .contact-list {
