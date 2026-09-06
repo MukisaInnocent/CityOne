@@ -139,6 +139,33 @@ const initialForm = {
   message: '',
 }
 
+const seoByPath = {
+  '/': {
+    title: 'City One Adventures | Uganda Tours, Safaris & Travel Experiences',
+    description: 'Plan memorable Uganda tours, safaris, gorilla trekking, cultural trips, and custom travel experiences with City One Adventures.',
+  },
+  '/about': {
+    title: 'About City One Adventures | Uganda Travel Experts',
+    description: 'Learn how City One Adventures creates safe, authentic, and memorable Uganda travel experiences with local expertise.',
+  },
+  '/tours': {
+    title: 'Uganda Tours & Safari Packages | City One Adventures',
+    description: 'Explore handpicked Uganda tour packages including wildlife safaris, gorilla trekking, Jinja adventures, and Kampala cultural journeys.',
+  },
+  '/destinations': {
+    title: 'Uganda Destinations | Kampala, Jinja, Bwindi & More',
+    description: 'Discover the best Uganda destinations, from Kampala and Jinja to Bwindi, Murchison Falls, Queen Elizabeth, and Fort Portal.',
+  },
+  '/services': {
+    title: 'Travel Services in Uganda | City One Adventures',
+    description: 'Get professional Uganda tour planning, safari packages, airport transfers, vehicle hire, guided tours, and customized travel support.',
+  },
+  '/contact': {
+    title: 'Contact City One Adventures | Plan Your Uganda Trip',
+    description: 'Contact City One Adventures to plan a Uganda safari, tour, gorilla trekking experience, cultural journey, or custom itinerary.',
+  },
+}
+
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
@@ -150,6 +177,60 @@ function App() {
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
+
+  useEffect(() => {
+    const seo = seoByPath[currentPath] || seoByPath['/']
+    const canonicalUrl = `https://cityoneadventure.com${currentPath === '/' ? '/' : currentPath}`
+    const setMeta = (attribute, value, content) => {
+      let element = document.head.querySelector(`meta[${attribute}="${value}"]`)
+      if (!element) {
+        element = document.createElement('meta')
+        element.setAttribute(attribute, value)
+        document.head.appendChild(element)
+      }
+      element.setAttribute('content', content)
+    }
+
+    document.title = seo.title
+    setMeta('name', 'description', seo.description)
+    setMeta('property', 'og:title', seo.title)
+    setMeta('property', 'og:description', seo.description)
+    setMeta('property', 'og:url', canonicalUrl)
+    setMeta('name', 'twitter:title', seo.title)
+    setMeta('name', 'twitter:description', seo.description)
+
+    let canonical = document.head.querySelector('link[rel="canonical"]')
+    if (!canonical) {
+      canonical = document.createElement('link')
+      canonical.setAttribute('rel', 'canonical')
+      document.head.appendChild(canonical)
+    }
+    canonical.setAttribute('href', canonicalUrl)
+
+    let schema = document.head.querySelector('#city-one-schema')
+    if (!schema) {
+      schema = document.createElement('script')
+      schema.id = 'city-one-schema'
+      schema.type = 'application/ld+json'
+      document.head.appendChild(schema)
+    }
+    schema.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'TravelAgency',
+      name: 'City One Adventures',
+      url: 'https://cityoneadventure.com',
+      logo: new URL(logo, window.location.origin).href,
+      description: seo.description,
+      areaServed: 'Uganda',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Kampala Road, Liberty Tower, Level 3',
+        addressLocality: 'Kampala',
+        addressCountry: 'UG',
+      },
+      sameAs: [],
+    })
+  }, [currentPath])
 
   const handleNavigation = (event, href) => {
     if (!href.startsWith('/')) return
