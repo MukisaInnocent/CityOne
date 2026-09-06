@@ -7,6 +7,7 @@ const app = express()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const port = process.env.PORT || 3001
+const publicPath = path.join(__dirname, 'public')
 const distPath = path.join(__dirname, 'dist')
 
 app.use(cors())
@@ -45,13 +46,12 @@ app.post('/api/inquiries', (req, res) => {
   })
 })
 
-if (process.env.NODE_ENV === 'production' || true) {
-  app.use(express.static(distPath))
+app.use(express.static(publicPath))
+app.use(express.static(distPath))
 
-  app.get(/^(?!\/api).+/, (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'))
-  })
-}
+app.get(/^(?!\/api).+/, (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'))
+})
 
 app.listen(port, () => {
   console.log(`City One Adventures API listening on http://localhost:${port}`)

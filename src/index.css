@@ -1,9 +1,15 @@
 :root {
+  --brand-green: #153d2f;
+  --brand-dark: #0f2f2a;
+  --brand-orange: #f06b2d;
+  --brand-gold: #f3ae4e;
+  --brand-cream: #f5f1eb;
+  --brand-muted: #dfe6df;
   font-family: 'Segoe UI', Inter, system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #1b2d1d;
-  background: #f7f4ef;
+  color: var(--brand-green);
+  background: var(--brand-cream);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

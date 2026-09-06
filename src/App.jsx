@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import logo from '../support files/logo.png'
 import './App.css'
 
 const navItems = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Tours', href: '#tours' },
-  { label: 'Destinations', href: '#destinations' },
-  { label: 'Services', href: '#services' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Tours', href: '/tours' },
+  { label: 'Destinations', href: '/destinations' },
+  { label: 'Services', href: '/services' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 const destinations = [
@@ -140,8 +141,24 @@ const initialForm = {
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [currentPath, setCurrentPath] = useState(window.location.pathname)
   const [formData, setFormData] = useState(initialForm)
   const [formStatus, setFormStatus] = useState({ type: 'idle', message: '' })
+
+  useEffect(() => {
+    const handlePopState = () => setCurrentPath(window.location.pathname)
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  const handleNavigation = (event, href) => {
+    if (!href.startsWith('/')) return
+    event.preventDefault()
+    window.history.pushState({}, '', href)
+    setCurrentPath(href)
+    setMobileMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const handleFieldChange = (event) => {
     const { name, value } = event.target
@@ -180,25 +197,21 @@ function App() {
 
   return (
     <div className="site-shell">
-      <header className="site-header" id="home">
+      <header className="site-header">
         <div className="container nav-wrap">
-          <a href="#home" className="brand" aria-label="City One Adventures home">
-            <span className="brand-mark">C1</span>
-            <span>
-              City One
-              <small>Adventures</small>
-            </span>
+          <a href="/" className="brand" aria-label="City One Adventures home" onClick={(event) => handleNavigation(event, '/')}>
+            <img src={logo} alt="City One Adventures logo" className="brand-logo" />
           </a>
 
           <nav className={`main-nav ${mobileMenuOpen ? 'open' : ''}`} aria-label="Main navigation">
             {navItems.map((item) => (
-              <a key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)}>
+              <a key={item.label} href={item.href} onClick={(event) => handleNavigation(event, item.href)}>
                 {item.label}
               </a>
             ))}
           </nav>
 
-          <a href="#contact" className="button button-primary nav-cta">
+          <a href="/contact" className="button button-primary nav-cta" onClick={(event) => handleNavigation(event, '/contact')}>
             Plan Your Trip
           </a>
 
@@ -217,7 +230,7 @@ function App() {
       </header>
 
       <main>
-        <section className="hero-section">
+        {currentPath === '/' && <section className="hero-section">
           <div className="container hero-grid">
             <div className="hero-copy">
               <p className="eyebrow">Uganda tours, safaris & travel experiences</p>
@@ -227,10 +240,10 @@ function App() {
                 cultural experiences, wildlife encounters, and memorable journeys across the country.
               </p>
               <div className="hero-actions">
-                <a href="#tours" className="button button-primary">
+                <a href="/tours" className="button button-primary" onClick={(event) => handleNavigation(event, '/tours')}>
                   Explore Our Tours
                 </a>
-                <a href="#contact" className="button button-secondary">
+                <a href="/contact" className="button button-secondary" onClick={(event) => handleNavigation(event, '/contact')}>
                   Plan Your Trip
                 </a>
               </div>
@@ -256,9 +269,9 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
+        </section>}
 
-        <section className="destinations-section section-space" id="destinations">
+        {currentPath === '/destinations' && <section className="destinations-section section-space" id="destinations">
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Explore Uganda</p>
@@ -276,16 +289,16 @@ function App() {
               ))}
             </div>
           </div>
-        </section>
+        </section>}
 
-        <section className="tours-section section-space" id="tours">
+        {currentPath === '/tours' && <section className="tours-section section-space" id="tours">
           <div className="container">
             <div className="section-heading split-heading">
               <div>
                 <p className="eyebrow">Handpicked adventures</p>
                 <h2>Featured tours and experiences</h2>
               </div>
-              <a href="#contact" className="text-link">
+              <a href="/contact" className="text-link" onClick={(event) => handleNavigation(event, '/contact')}>
                 Enquire Now →
               </a>
             </div>
@@ -304,10 +317,10 @@ function App() {
                     <div className="tour-footer">
                       <strong>{tour.price}</strong>
                       <div className="card-actions">
-                        <a href="#contact" className="button button-secondary compact">
+                        <a href="/contact" className="button button-secondary compact" onClick={(event) => handleNavigation(event, '/contact')}>
                           View Details
                         </a>
-                        <a href="#contact" className="button button-primary compact">
+                        <a href="/contact" className="button button-primary compact" onClick={(event) => handleNavigation(event, '/contact')}>
                           Enquire Now
                         </a>
                       </div>
@@ -317,9 +330,9 @@ function App() {
               ))}
             </div>
           </div>
-        </section>
+        </section>}
 
-        <section className="about-section section-space" id="about">
+        {currentPath === '/about' && <section className="about-section section-space" id="about">
           <div className="container about-grid">
             <div className="about-copy">
               <p className="eyebrow">About City One Adventures</p>
@@ -354,9 +367,9 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
+        </section>}
 
-        <section className="services-section section-space" id="services">
+        {currentPath === '/services' && <section className="services-section section-space" id="services">
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Travel services</p>
@@ -371,9 +384,9 @@ function App() {
               ))}
             </div>
           </div>
-        </section>
+        </section>}
 
-        <section className="testimonial-section section-space">
+        {currentPath === '/about' && <section className="testimonial-section section-space">
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Traveler feedback</p>
@@ -391,21 +404,21 @@ function App() {
               ))}
             </div>
           </div>
-        </section>
+        </section>}
 
-        <section className="cta-banner section-space">
+        {(currentPath === '/' || currentPath === '/tours' || currentPath === '/destinations') && <section className="cta-banner section-space">
           <div className="container cta-inner">
             <div>
               <p className="eyebrow">Start your next trip</p>
               <h2>Ready to plan an unforgettable Uganda adventure?</h2>
             </div>
-            <a href="#contact" className="button button-primary">
+            <a href="/contact" className="button button-primary" onClick={(event) => handleNavigation(event, '/contact')}>
               Book / Enquire Now
             </a>
           </div>
-        </section>
+        </section>}
 
-        <section className="contact-section section-space" id="contact">
+        {currentPath === '/contact' && <section className="contact-section section-space" id="contact">
           <div className="container contact-grid">
             <div className="contact-info">
               <p className="eyebrow">Contact us</p>
@@ -471,7 +484,7 @@ function App() {
               ) : null}
             </form>
           </div>
-        </section>
+        </section>}
       </main>
 
       <footer className="site-footer">
@@ -489,7 +502,7 @@ function App() {
             <ul>
               {navItems.map((item) => (
                 <li key={item.label}>
-                  <a href={item.href}>{item.label}</a>
+                  <a href={item.href} onClick={(event) => handleNavigation(event, item.href)}>{item.label}</a>
                 </li>
               ))}
             </ul>
