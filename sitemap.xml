@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://cityoneadventures.example/</loc>
+  </url>
+  <url>
+    <loc>https://cityoneadventures.example/#about</loc>
+  </url>
+  <url>
+    <loc>https://cityoneadventures.example/#tours</loc>
+  </url>
+  <url>
+    <loc>https://cityoneadventures.example/#destinations</loc>
+  </url>
+  <url>
+    <loc>https://cityoneadventures.example/#services</loc>
+  </url>
+  <url>
+    <loc>https://cityoneadventures.example/#contact</loc>
+  </url>
+</urlset>
