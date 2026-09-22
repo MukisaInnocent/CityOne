@@ -108,7 +108,7 @@ const services = [
   'Guided Tours',
   'Group Travel',
   'Corporate Travel',
-  'Customized Travel Experiences',
+  'Customized Tour and Travel Experiences',
 ]
 
 const testimonials = [
