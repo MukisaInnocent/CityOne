@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+import expressLayouts from 'express-ejs-layouts';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
@@ -31,6 +32,8 @@ const PORT = process.env.PORT || 3000;
 // ─── View Engine ──────────────────────────────────────────
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.set('layout', 'layouts/main');
+app.use(expressLayouts);
 
 // ─── Security Headers ─────────────────────────────────────
 app.use(helmet({
@@ -108,6 +111,7 @@ app.use(async (req, res, next) => {
     };
   }
   res.locals.currentPath = req.path;
+  res.locals.layout = req.path.startsWith('/admin') ? 'layouts/admin' : 'layouts/main';
   res.locals.appUrl = process.env.APP_URL || 'http://localhost:3000';
   next();
 });
