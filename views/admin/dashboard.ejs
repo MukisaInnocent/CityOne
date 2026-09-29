@@ -1,0 +1,92 @@
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+    <div class="card" style="padding: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">Total Bookings</p>
+                <h3 style="font-size: 2rem; margin: 0;">0</h3>
+            </div>
+            <div style="width: 40px; height: 40px; border-radius: 50%; background-color: rgba(26, 60, 52, 0.1); color: var(--color-primary); display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="calendar"></i>
+            </div>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--color-text-muted);"><span style="color: var(--color-success);">+0%</span> from last month</p>
+    </div>
+    
+    <div class="card" style="padding: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">Active Tours</p>
+                <h3 style="font-size: 2rem; margin: 0;">0</h3>
+            </div>
+            <div style="width: 40px; height: 40px; border-radius: 50%; background-color: rgba(232, 97, 45, 0.1); color: var(--color-accent); display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="map"></i>
+            </div>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--color-text-muted);">Published on website</p>
+    </div>
+    
+    <div class="card" style="padding: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">Total Customers</p>
+                <h3 style="font-size: 2rem; margin: 0;">0</h3>
+            </div>
+            <div style="width: 40px; height: 40px; border-radius: 50%; background-color: rgba(45, 100, 134, 0.1); color: var(--color-info); display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="users"></i>
+            </div>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--color-text-muted);">Registered accounts</p>
+    </div>
+    
+    <div class="card" style="padding: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">Revenue</p>
+                <h3 style="font-size: 2rem; margin: 0;">$0</h3>
+            </div>
+            <div style="width: 40px; height: 40px; border-radius: 50%; background-color: rgba(45, 134, 89, 0.1); color: var(--color-success); display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="dollar-sign"></i>
+            </div>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--color-text-muted);">This month</p>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+    <div class="card" style="padding: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 style="margin: 0;">Recent Bookings</h3>
+            <a href="/admin/bookings" class="btn btn-text" style="padding: 0; font-size: 0.9rem;">View All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Ref</th>
+                        <th>Customer</th>
+                        <th>Tour</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: var(--color-text-muted); padding: 2rem;">No recent bookings</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="card" style="padding: 1.5rem;">
+        <h3 style="margin-bottom: 1.5rem;">Quick Actions</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <a href="/admin/tours/new" class="btn btn-outline" style="justify-content: flex-start;"><i data-lucide="plus" style="width: 18px; height: 18px;"></i> Add New Tour</a>
+            <a href="/admin/destinations/new" class="btn btn-outline" style="justify-content: flex-start;"><i data-lucide="plus" style="width: 18px; height: 18px;"></i> Add Destination</a>
+            <a href="/admin/bookings/new" class="btn btn-outline" style="justify-content: flex-start;"><i data-lucide="plus" style="width: 18px; height: 18px;"></i> Manual Booking</a>
+            <% if (['super_admin'].includes(currentUser.role)) { %>
+            <a href="/admin/settings" class="btn btn-outline" style="justify-content: flex-start;"><i data-lucide="settings" style="width: 18px; height: 18px;"></i> Site Settings</a>
+            <% } %>
+        </div>
+    </div>
+</div>

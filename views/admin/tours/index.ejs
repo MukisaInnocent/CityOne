@@ -1,0 +1,41 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h2 style="margin: 0;"><%= title %></h2>
+    <a href="/admin/tours/new" class="btn btn-primary"><i data-lucide="plus"></i> Add New Tour</a>
+</div>
+
+<div class="card" style="padding: 1.5rem;">
+    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+        <input type="text" placeholder="Search tours..." style="padding: 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); width: 300px;">
+        <select style="padding: 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+            <option value="">All Categories</option>
+            <option value="wildlife">Wildlife Safari</option>
+            <option value="gorilla">Gorilla Trekking</option>
+        </select>
+        <select style="padding: 0.5rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+            <option value="">All Statuses</option>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+            <option value="archived">Archived</option>
+        </select>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Duration</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="6" style="text-align: center; color: var(--color-text-muted); padding: 2rem;">No tours found. Create your first tour.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

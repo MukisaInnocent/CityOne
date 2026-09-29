@@ -1,58 +1,144 @@
-import express from 'express'
-import cors from 'cors'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import dotenv from 'dotenv';
+dotenv.config();
 
-const app = express()
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const port = process.env.PORT || 3001
-const publicPath = path.join(__dirname, 'public')
-const distPath = path.join(__dirname, 'dist')
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
+import helmet from 'helmet';
+import cors from 'cors';
+import { logger } from './utils/logger.js';
+import { authenticate } from './middleware/auth.js';
+import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
+import { generalLimiter } from './middleware/rateLimit.js';
+import { db } from './config/database.js';
 
-app.use(cors())
-app.use(express.json())
+// Routes
+import publicRoutes from './routes/public.js';
+import authRoutes from './routes/auth.js';
+import apiRoutes from './routes/api.js';
+import customerRoutes from './routes/customer.js';
+import adminRoutes from './routes/admin.js';
 
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'City One Adventures API is running.' })
-})
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.post('/api/inquiries', (req, res) => {
-  const { name, email, phone, travelDate, travelers, destination, message } = req.body || {}
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-  if (!name || !email || !message) {
-    return res.status(400).json({
-      error: 'Name, email, and message are required.',
-    })
+// ─── View Engine ──────────────────────────────────────────
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// ─── Security Headers ─────────────────────────────────────
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://unpkg.com"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net", "https://unpkg.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https://images.unsplash.com", "https://*.tile.openstreetmap.org", "blob:"],
+      connectSrc: ["'self'", "https://v6.exchangerate-api.com"],
+      frameSrc: ["'none'"]
+    }
+  },
+  crossOriginEmbedderPolicy: false
+}));
+
+// ─── Core Middleware ──────────────────────────────────────
+app.use(cors({
+  origin: process.env.APP_URL || 'http://localhost:3000',
+  credentials: true
+}));
+app.use(compression());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(cookieParser());
+app.use(generalLimiter);
+
+// ─── Static Files ─────────────────────────────────────────
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: process.env.NODE_ENV === 'production' ? '1y' : 0,
+  etag: true
+}));
+
+// ─── Authentication (sets req.user on every request) ──────
+app.use(authenticate);
+
+// ─── Template Globals ─────────────────────────────────────
+app.use(async (req, res, next) => {
+  // Load site settings from DB for templates
+  try {
+    const settings = await db('site_settings').select('setting_key', 'setting_value');
+    const siteSettings = {};
+    settings.forEach(s => { siteSettings[s.setting_key] = s.setting_value; });
+    res.locals.site = {
+      name: siteSettings.site_name || 'City One Adventures',
+      tagline: siteSettings.site_tagline || 'Uganda Tours, Safaris & Travel Experiences',
+      email: siteSettings.contact_email || 'info@cityoneadventure.com',
+      phone: siteSettings.contact_phone || '0786870308',
+      address: siteSettings.contact_address || 'Kampala Road, Liberty Tower, Level 3',
+      city: siteSettings.contact_city || 'Kampala, Uganda',
+      whatsapp: siteSettings.contact_whatsapp || '0786870308',
+      facebook: siteSettings.social_facebook || '',
+      instagram: siteSettings.social_instagram || '',
+      twitter: siteSettings.social_twitter || '',
+      youtube: siteSettings.social_youtube || '',
+      currency: siteSettings.default_currency || 'USD',
+      ga_id: siteSettings.ga_measurement_id || process.env.GA_MEASUREMENT_ID || ''
+    };
+  } catch (err) {
+    // DB might not be set up yet
+    res.locals.site = {
+      name: 'City One Adventures',
+      tagline: 'Uganda Tours, Safaris & Travel Experiences',
+      email: 'info@cityoneadventure.com',
+      phone: '0786870308',
+      address: 'Kampala Road, Liberty Tower, Level 3',
+      city: 'Kampala, Uganda',
+      whatsapp: '0786870308',
+      facebook: 'https://facebook.com/CityOneAdventures',
+      instagram: 'https://instagram.com/CityOneAdventures',
+      twitter: 'https://twitter.com/CityOneAdventures',
+      youtube: 'https://youtube.com/@CityOneAdventures',
+      currency: 'USD', ga_id: ''
+    };
+  }
+  res.locals.currentPath = req.path;
+  res.locals.appUrl = process.env.APP_URL || 'http://localhost:3000';
+  next();
+});
+
+// ─── Routes ───────────────────────────────────────────────
+app.use('/', publicRoutes);
+app.use('/', authRoutes);
+app.use('/api', apiRoutes);
+app.use('/account', customerRoutes);
+app.use('/admin', adminRoutes);
+
+// ─── Error Handling ───────────────────────────────────────
+app.use(notFoundHandler);
+app.use(errorHandler);
+
+// ─── Start Server ─────────────────────────────────────────
+async function startServer() {
+  try {
+    // Test database connection
+    await db.raw('SELECT 1');
+    logger.info('Database connected successfully');
+  } catch (err) {
+    logger.warn('Database not available — server will start but DB features will not work');
+    logger.warn('Run "npm run db:setup" to initialize the database');
   }
 
-  const inquiry = {
-    name,
-    email,
-    phone: phone || '[NOT PROVIDED]',
-    travelDate: travelDate || '[NOT PROVIDED]',
-    travelers: travelers || 1,
-    destination: destination || '[NOT PROVIDED]',
-    message,
-    createdAt: new Date().toISOString(),
-  }
+  app.listen(PORT, () => {
+    logger.info(`City One Adventures running at http://localhost:${PORT}`);
+    logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
 
-  console.log('New inquiry received:', inquiry)
+startServer();
 
-  return res.status(201).json({
-    success: true,
-    message: 'Inquiry received. A travel advisor will contact you soon.',
-    inquiry,
-  })
-})
-
-app.use(express.static(publicPath))
-app.use(express.static(distPath))
-
-app.get(/^(?!\/api).+/, (req, res) => {
-  res.sendFile(path.join(distPath, 'index.html'))
-})
-
-app.listen(port, () => {
-  console.log(`City One Adventures API listening on http://localhost:${port}`)
-})
+export default app;

@@ -1,0 +1,45 @@
+<div class="page-header" style="background-color: var(--color-primary); padding: 3rem 0; color: white;">
+    <div class="container">
+        <h1 style="color: white; margin-bottom: 0.5rem;"><%= title %></h1>
+    </div>
+</div>
+
+<section class="section" style="background-color: var(--color-background);">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: 250px 1fr; gap: 3rem;">
+            <!-- Customer Sidebar -->
+            <aside>
+                <div class="card" style="padding: 1.5rem;">
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;">
+                            <a href="/account" class="btn btn-text" style="width: 100%; justify-content: flex-start; <%= currentPath === '/account' ? 'color: var(--color-accent); font-weight: bold;' : '' %>">
+                                <i data-lucide="layout-dashboard"></i> Dashboard
+                            </a>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <a href="/account/bookings" class="btn btn-text" style="width: 100%; justify-content: flex-start; <%= currentPath === '/account/bookings' ? 'color: var(--color-accent); font-weight: bold;' : '' %>">
+                                <i data-lucide="calendar"></i> My Bookings
+                            </a>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <a href="/account/profile" class="btn btn-text" style="width: 100%; justify-content: flex-start; <%= currentPath === '/account/profile' ? 'color: var(--color-accent); font-weight: bold;' : '' %>">
+                                <i data-lucide="user"></i> Profile Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            
+            <!-- Bookings Content -->
+            <div>
+                <div class="card" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1rem;">Your Bookings</h3>
+                    <p style="color: var(--color-text-muted); text-align: center; padding: 2rem 0;">You have no bookings yet.</p>
+                    <div style="text-align: center;">
+                        <a href="/tours" class="btn btn-primary">Browse Tours</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

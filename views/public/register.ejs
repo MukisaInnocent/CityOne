@@ -1,0 +1,48 @@
+<div class="page-header" style="background-color: var(--color-primary); padding: 4rem 0; color: white; text-align: center;">
+    <div class="container">
+        <h1 style="color: white; margin-bottom: 0.5rem;"><%= title %></h1>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container" style="max-width: 600px;">
+        <div class="card" style="padding: 2.5rem;">
+            <form action="/api/auth/register" method="POST" class="needs-validation" novalidate>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <label for="first_name" style="display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 0.9rem;">First Name *</label>
+                        <input type="text" id="first_name" name="first_name" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
+                    </div>
+                    <div>
+                        <label for="last_name" style="display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 0.9rem;">Last Name *</label>
+                        <input type="text" id="last_name" name="last_name" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="email" style="display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 0.9rem;">Email Address *</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="password" style="display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 0.9rem;">Password *</label>
+                    <input type="password" id="password" name="password" required minlength="8" style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
+                    <small style="color: var(--color-text-muted); display: block; margin-top: 0.25rem;">Must be at least 8 characters</small>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
+                        <input type="checkbox" name="agree_terms" required style="margin-top: 0.25rem;"> 
+                        <span>I agree to the <a href="/terms" target="_blank">Terms & Conditions</a> and <a href="/privacy" target="_blank">Privacy Policy</a> *</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Create Account</button>
+            </form>
+            
+            <div style="margin-top: 2rem; text-align: center; border-top: 1px solid var(--color-border); padding-top: 1.5rem;">
+                <p style="font-size: 0.9rem; color: var(--color-text-muted);">Already have an account? <a href="/login" style="color: var(--color-accent); font-weight: 600;">Log in here</a></p>
+            </div>
+        </div>
+    </div>
+</section>

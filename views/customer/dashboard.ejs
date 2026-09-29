@@ -1,0 +1,68 @@
+<div class="page-header" style="background-color: var(--color-primary); padding: 3rem 0; color: white;">
+    <div class="container">
+        <h1 style="color: white; margin-bottom: 0.5rem;"><%= title %></h1>
+        <p style="color: rgba(255,255,255,0.8);">Welcome back, <%= currentUser.firstName %></p>
+    </div>
+</div>
+
+<section class="section" style="background-color: var(--color-background);">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: 250px 1fr; gap: 3rem;">
+            <!-- Customer Sidebar -->
+            <aside>
+                <div class="card" style="padding: 1.5rem;">
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;">
+                            <a href="/account" class="btn btn-text" style="width: 100%; justify-content: flex-start; <%= currentPath === '/account' ? 'color: var(--color-accent); font-weight: bold;' : '' %>">
+                                <i data-lucide="layout-dashboard"></i> Dashboard
+                            </a>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <a href="/account/bookings" class="btn btn-text" style="width: 100%; justify-content: flex-start; <%= currentPath === '/account/bookings' ? 'color: var(--color-accent); font-weight: bold;' : '' %>">
+                                <i data-lucide="calendar"></i> My Bookings
+                            </a>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <a href="/account/profile" class="btn btn-text" style="width: 100%; justify-content: flex-start; <%= currentPath === '/account/profile' ? 'color: var(--color-accent); font-weight: bold;' : '' %>">
+                                <i data-lucide="user"></i> Profile Settings
+                            </a>
+                        </li>
+                        <li>
+                            <form action="/api/auth/logout" method="POST" class="inline-form" id="logout-form-sidebar">
+                                <button type="button" class="btn btn-text" style="width: 100%; justify-content: flex-start; color: var(--color-danger);" onclick="document.getElementById('logout-form-sidebar').submit()">
+                                    <i data-lucide="log-out"></i> Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            
+            <!-- Dashboard Content -->
+            <div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div class="card" style="padding: 1.5rem; text-align: center;">
+                        <div style="color: var(--color-primary); margin-bottom: 0.5rem;"><i data-lucide="calendar-check" style="width: 32px; height: 32px;"></i></div>
+                        <h3 style="font-size: 2rem; margin-bottom: 0;">0</h3>
+                        <p style="color: var(--color-text-muted); font-size: 0.9rem;">Upcoming Trips</p>
+                    </div>
+                    <div class="card" style="padding: 1.5rem; text-align: center;">
+                        <div style="color: var(--color-primary); margin-bottom: 0.5rem;"><i data-lucide="history" style="width: 32px; height: 32px;"></i></div>
+                        <h3 style="font-size: 2rem; margin-bottom: 0;">0</h3>
+                        <p style="color: var(--color-text-muted); font-size: 0.9rem;">Past Trips</p>
+                    </div>
+                    <div class="card" style="padding: 1.5rem; text-align: center;">
+                        <div style="color: var(--color-primary); margin-bottom: 0.5rem;"><i data-lucide="star" style="width: 32px; height: 32px;"></i></div>
+                        <h3 style="font-size: 2rem; margin-bottom: 0;">0</h3>
+                        <p style="color: var(--color-text-muted); font-size: 0.9rem;">Reviews</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1rem;">Recent Activity</h3>
+                    <p style="color: var(--color-text-muted); text-align: center; padding: 2rem 0;">You have no recent activity.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

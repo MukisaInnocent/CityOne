@@ -1,0 +1,39 @@
+<div class="page-header" style="background-color: var(--color-primary); padding: 4rem 0; color: white; text-align: center;">
+    <div class="container">
+        <h1 style="color: white; margin-bottom: 0.5rem;"><%= title %></h1>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="card" style="padding: 2.5rem;">
+                <h2 style="margin-bottom: 1.5rem;"><%= site.about_title || 'About City One Adventures' %></h2>
+                
+                <div style="font-size: 1.1rem; color: var(--color-text-muted); line-height: 1.8; margin-bottom: 2rem;">
+                    <%= site.about_description || 'City One Adventures is a Ugandan tour and travel company dedicated to creating meaningful, safe, and inspiring experiences for visitors exploring Uganda.' %>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;">
+                    <div style="background-color: var(--color-background); padding: 1.5rem; border-radius: var(--radius-md);">
+                        <h3 style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-accent); margin-bottom: 1rem;">
+                            <i data-lucide="target"></i> Our Mission
+                        </h3>
+                        <p style="color: var(--color-text-muted); font-size: 0.95rem;">
+                            <%= site.about_mission || 'To deliver authentic, well-managed travel experiences that help travelers discover the best of Uganda.' %>
+                        </p>
+                    </div>
+                    
+                    <div style="background-color: var(--color-background); padding: 1.5rem; border-radius: var(--radius-md);">
+                        <h3 style="display: flex; align-items: center; gap: 0.5rem; color: var(--color-accent); margin-bottom: 1rem;">
+                            <i data-lucide="eye"></i> Our Vision
+                        </h3>
+                        <p style="color: var(--color-text-muted); font-size: 0.95rem;">
+                            <%= site.about_vision || 'To become a trusted name for accessible, memorable, and responsible tourism across Uganda and East Africa.' %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

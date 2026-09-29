@@ -1,0 +1,83 @@
+<div class="page-header" style="background-color: var(--color-primary); padding: 4rem 0; color: white; text-align: center;">
+    <div class="container">
+        <h1 style="color: white; margin-bottom: 0.5rem;"><%= title %></h1>
+        <p style="color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto;">
+            Explore our carefully crafted itineraries designed to showcase the very best of Uganda.
+        </p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: 250px 1fr; gap: 3rem;">
+            <!-- Sidebar / Filters -->
+            <aside class="filters">
+                <div class="card" style="padding: 1.5rem;">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border);">Filter Tours</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 0.5rem;">Categories</h4>
+                        <label style="display: block; margin-bottom: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" style="margin-right: 0.5rem;"> Wildlife Safaris
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" style="margin-right: 0.5rem;"> Gorilla Trekking
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" style="margin-right: 0.5rem;"> Adventure
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" style="margin-right: 0.5rem;"> Cultural
+                        </label>
+                    </div>
+                    
+                    <div>
+                        <h4 style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 0.5rem;">Duration</h4>
+                        <label style="display: block; margin-bottom: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" style="margin-right: 0.5rem;"> 1-3 Days
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" style="margin-right: 0.5rem;"> 4-7 Days
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" style="margin-right: 0.5rem;"> 8+ Days
+                        </label>
+                    </div>
+                </div>
+            </aside>
+            
+            <!-- Tours Grid -->
+            <div>
+                <!-- We will populate this dynamically later -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
+                    
+                    <div class="card">
+                        <div style="height: 200px; background-color: var(--color-border); position: relative;">
+                            <span style="position: absolute; top: 1rem; right: 1rem; background: var(--color-accent); color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: bold;">
+                                Wildlife
+                            </span>
+                        </div>
+                        <div style="padding: 1.5rem;">
+                            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">
+                                <a href="/tours/demo">Wildlife Safari Escape</a>
+                            </h3>
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem; color: var(--color-text-muted); font-size: 0.9rem;">
+                                <span style="display: flex; align-items: center; gap: 0.25rem;"><i data-lucide="clock" style="width: 16px; height: 16px;"></i> 4 Days</span>
+                                <span style="display: flex; align-items: center; gap: 0.25rem;"><i data-lucide="users" style="width: 16px; height: 16px;"></i> Min 2</span>
+                            </div>
+                            <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">A classic Uganda safari with game drives, scenic views, and memorable wildlife sightings.</p>
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--color-border);">
+                                <div>
+                                    <span style="font-size: 0.8rem; color: var(--color-text-muted);">From</span><br>
+                                    <span style="font-weight: bold; color: var(--color-primary); font-size: 1.2rem;">$1,250</span>
+                                </div>
+                                <a href="/tours/demo" class="btn btn-outline" style="padding: 0.5rem 1rem;">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

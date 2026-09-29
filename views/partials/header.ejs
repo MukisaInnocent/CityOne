@@ -1,0 +1,38 @@
+<header class="site-header">
+    <div class="container header-container">
+        <a href="/" class="logo-link">
+            <img src="/images/logo.png" alt="<%= site.name %>" class="logo">
+            <span class="logo-text">City One Adventures</span>
+        </a>
+        
+        <nav class="main-nav" id="main-nav">
+            <ul>
+                <li><a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Home</a></li>
+                <li><a href="/tours" class="<%= currentPath.startsWith('/tours') ? 'active' : '' %>">Tours</a></li>
+                <li><a href="/destinations" class="<%= currentPath.startsWith('/destinations') ? 'active' : '' %>">Destinations</a></li>
+                <li><a href="/about" class="<%= currentPath === '/about' ? 'active' : '' %>">About Us</a></li>
+                <li><a href="/contact" class="<%= currentPath === '/contact' ? 'active' : '' %>">Contact</a></li>
+                
+                <% if (locals.currentUser) { %>
+                    <% if (['super_admin', 'admin', 'staff'].includes(currentUser.role)) { %>
+                        <li><a href="/admin" class="btn btn-outline">Admin Panel</a></li>
+                    <% } else { %>
+                        <li><a href="/account" class="btn btn-outline">My Account</a></li>
+                    <% } %>
+                    <li>
+                        <form action="/api/auth/logout" method="POST" class="inline-form" id="logout-form">
+                            <button type="button" class="btn btn-text" onclick="document.getElementById('logout-form').submit()">Logout</button>
+                        </form>
+                    </li>
+                <% } else { %>
+                    <li><a href="/login" class="btn btn-text">Login</a></li>
+                    <li><a href="/register" class="btn btn-primary">Book Now</a></li>
+                <% } %>
+            </ul>
+        </nav>
+        
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+            <i data-lucide="menu"></i>
+        </button>
+    </div>
+</header>

@@ -1,0 +1,79 @@
+<div class="page-header" style="background-color: var(--color-primary); padding: 4rem 0; color: white; text-align: center;">
+    <div class="container">
+        <h1 style="color: white; margin-bottom: 0.5rem;"><%= title %></h1>
+        <p style="color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto;">
+            We'd love to hear from you. Send us a message and our team will respond shortly.
+        </p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 3rem;">
+            <!-- Contact Info -->
+            <div>
+                <div class="card" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Contact Information</h3>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="color: var(--color-accent);"><i data-lucide="map-pin"></i></div>
+                        <div>
+                            <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Address</h4>
+                            <p style="color: var(--color-text-muted); font-size: 0.95rem;"><%= site.address %><br><%= site.city %></p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="color: var(--color-accent);"><i data-lucide="phone"></i></div>
+                        <div>
+                            <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Phone</h4>
+                            <p style="color: var(--color-text-muted); font-size: 0.95rem;"><a href="tel:<%= site.phone %>" style="color: inherit;"><%= site.phone %></a></p>
+                            <% if (site.whatsapp) { %>
+                            <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-top: 0.25rem;"><a href="https://wa.me/<%= site.whatsapp.replace(/[^0-9]/g, '') %>" style="color: inherit;"><i data-lucide="message-circle" style="width: 14px; height: 14px; vertical-align: middle;"></i> WhatsApp</a></p>
+                            <% } %>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <div style="color: var(--color-accent);"><i data-lucide="mail"></i></div>
+                        <div>
+                            <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Email</h4>
+                            <p style="color: var(--color-text-muted); font-size: 0.95rem;"><a href="mailto:<%= site.email %>" style="color: inherit;"><%= site.email %></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div>
+                <div class="card" style="padding: 2.5rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Send us a message</h3>
+                    <form action="/api/contact" method="POST" class="needs-validation" novalidate>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <label for="name" style="display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 0.9rem;">Your Name *</label>
+                                <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
+                            </div>
+                            <div>
+                                <label for="email" style="display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 0.9rem;">Your Email *</label>
+                                <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="subject" style="display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 0.9rem;">Subject *</label>
+                            <input type="text" id="subject" name="subject" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="message" style="display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 0.9rem;">Message *</label>
+                            <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit; resize: vertical;"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

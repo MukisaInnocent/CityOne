@@ -1,0 +1,65 @@
+<div class="hero" style="background-image: linear-gradient(rgba(26, 60, 52, 0.8), rgba(26, 60, 52, 0.8)), url('<%= site.hero_image || 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?auto=format&fit=crop&w=1400&q=80' %>'); background-size: cover; background-position: center;">
+    <div class="container">
+        <span class="hero-eyebrow" style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; display: block;">
+            <%= site.hero_eyebrow || 'Uganda tours, safaris & travel experiences' %>
+        </span>
+        <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; max-width: 800px; margin-left: auto; margin-right: auto; color: white;">
+            <%= site.hero_title || 'Discover Uganda. Experience the Adventure.' %>
+        </h1>
+        <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 2.5rem; color: rgba(255, 255, 255, 0.9);">
+            <%= site.hero_subtitle || 'Explore the best of Uganda through curated tours, cultural experiences, and memorable journeys.' %>
+        </p>
+        <div class="hero-actions" style="display: flex; gap: 1rem; justify-content: center;">
+            <a href="/tours" class="btn btn-primary">Explore Tours</a>
+            <a href="/destinations" class="btn btn-secondary" style="border: 1px solid rgba(255,255,255,0.3);">Destinations</a>
+        </div>
+    </div>
+</div>
+
+<section class="section" style="background-color: var(--color-surface);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-subtitle">Why Choose Us</span>
+            <h2 class="section-title">Your Uganda Travel Experts</h2>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <div class="card" style="padding: 2rem; text-align: center;">
+                <div style="width: 64px; height: 64px; background-color: rgba(232, 97, 45, 0.1); color: var(--color-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                    <i data-lucide="map"></i>
+                </div>
+                <h3>Expert Local Guides</h3>
+                <p style="color: var(--color-text-muted);">Our knowledgeable guides ensure you see the best of Uganda with deep local insights.</p>
+            </div>
+            
+            <div class="card" style="padding: 2rem; text-align: center;">
+                <div style="width: 64px; height: 64px; background-color: rgba(232, 97, 45, 0.1); color: var(--color-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                    <i data-lucide="shield-check"></i>
+                </div>
+                <h3>Safe & Reliable</h3>
+                <p style="color: var(--color-text-muted);">We prioritize your safety with well-maintained vehicles and carefully vetted partners.</p>
+            </div>
+            
+            <div class="card" style="padding: 2rem; text-align: center;">
+                <div style="width: 64px; height: 64px; background-color: rgba(232, 97, 45, 0.1); color: var(--color-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                    <i data-lucide="heart"></i>
+                </div>
+                <h3>Tailored Experiences</h3>
+                <p style="color: var(--color-text-muted);">Custom itineraries designed around your preferences, schedule, and budget.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-subtitle">Featured Experiences</span>
+            <h2 class="section-title">Popular Tours</h2>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/tours" class="btn btn-outline">View All Tours</a>
+        </div>
+    </div>
+</section>

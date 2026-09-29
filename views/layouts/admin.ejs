@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | Admin - City One Adventures</title>
+    
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/styles.css">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Admin-specific overrides */
+        body { background-color: var(--color-background); }
+        .admin-layout { display: flex; min-height: 100vh; }
+        .admin-sidebar { width: 260px; background-color: var(--color-primary-dark); color: white; flex-shrink: 0; padding: 1.5rem; display: flex; flex-direction: column; }
+        .admin-content { flex-grow: 1; display: flex; flex-direction: column; min-width: 0; }
+        .admin-header { height: 70px; background-color: white; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; position: sticky; top: 0; z-index: 10; }
+        .admin-main { padding: 2rem; overflow-y: auto; flex-grow: 1; }
+        
+        .sidebar-brand { display: flex; align-items: center; gap: 0.75rem; color: white; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-brand img { height: 32px; filter: brightness(0) invert(1); }
+        .sidebar-brand span { font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; }
+        
+        .sidebar-nav { list-style: none; margin: 0; padding: 0; flex-grow: 1; }
+        .sidebar-nav li { margin-bottom: 0.5rem; }
+        .sidebar-nav a { display: flex; align-items: center; gap: 0.75rem; color: rgba(255,255,255,0.7); padding: 0.75rem 1rem; border-radius: var(--radius-sm); transition: all 0.2s; }
+        .sidebar-nav a:hover, .sidebar-nav a.active { color: white; background-color: rgba(255,255,255,0.1); }
+        .sidebar-nav .nav-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.4); margin: 1.5rem 0 0.5rem 1rem; }
+        
+        .admin-user { display: flex; align-items: center; gap: 1rem; }
+        .admin-user-avatar { width: 36px; height: 36px; background-color: var(--color-primary-light); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        
+        /* Data Tables */
+        .table-responsive { overflow-x: auto; }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th, .table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-border); }
+        .table th { background-color: var(--color-background); font-weight: 600; color: var(--color-text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .table tbody tr:hover { background-color: rgba(0,0,0,0.01); }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <a href="/" class="sidebar-brand">
+                <img src="/images/logo.png" alt="Logo">
+                <span>City One Admin</span>
+            </a>
+            
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">
+                        <i data-lucide="layout-dashboard"></i> Dashboard
+                    </a>
+                </li>
+                
+                <div class="nav-label">Management</div>
+                <li>
+                    <a href="/admin/bookings" class="<%= currentPath.startsWith('/admin/bookings') ? 'active' : '' %>">
+                        <i data-lucide="calendar"></i> Bookings
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/tours" class="<%= currentPath.startsWith('/admin/tours') ? 'active' : '' %>">
+                        <i data-lucide="map"></i> Tours
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/destinations" class="<%= currentPath.startsWith('/admin/destinations') ? 'active' : '' %>">
+                        <i data-lucide="map-pin"></i> Destinations
+                    </a>
+                </li>
+                
+                <% if (['super_admin', 'admin'].includes(currentUser.role)) { %>
+                <div class="nav-label">System</div>
+                <li>
+                    <a href="/admin/users" class="<%= currentPath.startsWith('/admin/users') ? 'active' : '' %>">
+                        <i data-lucide="users"></i> Users & Staff
+                    </a>
+                </li>
+                <% } %>
+                
+                <% if (['super_admin'].includes(currentUser.role)) { %>
+                <li>
+                    <a href="/admin/settings" class="<%= currentPath.startsWith('/admin/settings') ? 'active' : '' %>">
+                        <i data-lucide="settings"></i> Settings
+                    </a>
+                </li>
+                <% } %>
+            </ul>
+            
+            <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <form action="/api/auth/logout" method="POST">
+                    <button type="submit" class="btn btn-text" style="color: white; width: 100%; justify-content: flex-start; padding-left: 1rem;">
+                        <i data-lucide="log-out"></i> Logout
+                    </button>
+                </form>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="admin-content">
+            <header class="admin-header">
+                <div>
+                    <h2 style="margin: 0; font-size: 1.25rem;"><%= title %></h2>
+                </div>
+                <div class="admin-user">
+                    <a href="/" target="_blank" class="btn btn-text" style="color: var(--color-text-muted);"><i data-lucide="external-link" style="width: 16px; height: 16px;"></i> View Site</a>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; border-left: 1px solid var(--color-border); padding-left: 1rem; margin-left: 0.5rem;">
+                        <div style="text-align: right;">
+                            <div style="font-weight: 600; font-size: 0.9rem;"><%= currentUser.firstName %> <%= currentUser.lastName %></div>
+                            <div style="font-size: 0.75rem; color: var(--color-text-muted); text-transform: uppercase;"><%= currentUser.role %></div>
+                        </div>
+                        <div class="admin-user-avatar"><%= currentUser.firstName.charAt(0) %></div>
+                    </div>
+                </div>
+            </header>
+            
+            <main class="admin-main">
+                <%- body %>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
