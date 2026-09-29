@@ -1,4 +1,4 @@
-import { db } from '../../config/database.js';
+import { db } from '../config/database.js';
 
 class Tour {
   static async findAll(filters = {}) {
