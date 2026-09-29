@@ -27,6 +27,30 @@
       gtag('config', '<%= site.ga_id %>');
     </script>
     <% } %>
+
+    <!-- SEO Schema Markup -->
+    <% if (locals.schema) { %>
+    <script type="application/ld+json">
+      <%- JSON.stringify(schema) %>
+    </script>
+    <% } else { %>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TravelAgency",
+        "name": "<%= site.name %>",
+        "image": "<%= appUrl %>/images/logo.png",
+        "url": "<%= appUrl %>",
+        "telephone": "<%= site.phone %>",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "<%= site.address %>",
+          "addressLocality": "<%= site.city.split(',')[0].trim() %>",
+          "addressCountry": "UG"
+        }
+      }
+    </script>
+    <% } %>
 </head>
 <body>
     <%- include('../partials/header') %>

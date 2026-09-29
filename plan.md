@@ -402,6 +402,8 @@ PUT    /api/customer/profile         # Update profile
 | **10. Testing** | End-to-end verification, forms, auth, CRUD, mobile, errors | Test report |
 | **11. Production Prep** | PM2 config, Nginx config, SSL setup, .env.example | Deployment-ready |
 | **12. Documentation** | README, API docs, admin guide, deployment guide, checklists | Complete docs |
+| **13. Global Performance & SEO** | CDN configuration, image optimization (sharp), dynamic sitemap, JSON-LD Schema markup | SEO & Speed optimized |
+| **14. Disaster Recovery** | Automated daily MySQL backups to off-site storage (S3) | Backup cron jobs |
 
 ---
 

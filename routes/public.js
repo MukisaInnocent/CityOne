@@ -16,4 +16,7 @@ router.get('/tours/:slug', TourController.tourDetails);
 router.get('/destinations', DestinationController.listDestinations);
 router.get('/destinations/:slug', DestinationController.destinationDetails);
 
+import { generateSitemap } from '../controllers/public/SitemapController.js';
+router.get('/sitemap.xml', generateSitemap);
+
 export default router;

@@ -13,7 +13,14 @@
     "db:setup": "npx knex migrate:latest && npx knex seed:run",
     "db:reset": "npx knex migrate:rollback --all && npx knex migrate:latest && npx knex seed:run"
   },
-  "keywords": ["travel", "tourism", "tours", "safaris", "booking", "uganda"],
+  "keywords": [
+    "travel",
+    "tourism",
+    "tours",
+    "safaris",
+    "booking",
+    "uganda"
+  ],
   "author": "City One Adventures",
   "license": "PROPRIETARY",
   "dependencies": {
@@ -39,7 +46,6 @@
     "uuid": "^10.0.0",
     "winston": "^3.14.2"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=18.0.0"
   }
